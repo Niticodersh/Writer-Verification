@@ -1,8 +1,4 @@
 # NCVPRIPG Writer Verification  
-# TEAM: SSWrites
-Kaggle: [https://www.kaggle.com/nitishbhardwajiitj](https://www.kaggle.com/nitishbhardwajiitj)
----------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
-
 This GitHub repository aims to identify whether a given pair of handwritten text samples was written by the same person or two different individuals. It provides a solution for verifying the authenticity of handwritten text samples, making it invaluable for real-world applications such as forensic analysis, document authentication, and signature verification systems.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
