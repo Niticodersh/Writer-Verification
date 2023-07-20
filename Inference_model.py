@@ -1,37 +1,15 @@
 #Importing libraries -----------------------------------------------------------------------------------------------------------------
-import os
-import random
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import cv2
-from torch.utils.data import DataLoader
-import random
 from PIL import Image
-import PIL.ImageOps
 import torch
-import torchvision
 from torchvision import transforms
-from torch.utils.data import dataloader
-import torchvision.utils
-from torch.autograd import Variable
 import torch.nn as nn
-from torch import optim
-import torch.nn.functional as F
-import torch.optim as optim
-from torch.optim.lr_scheduler import ExponentialLR
-from torch.utils.data import DataLoader, Dataset
-from sklearn.neighbors import KNeighborsClassifier
-from scipy.spatial.distance import euclidean
-from sklearn.ensemble import AdaBoostClassifier
-from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.neighbors import KNeighborsClassifier
 import joblib
-from sklearn.svm import SVC
-from sklearn.metrics import f1_score, roc_auc_score, accuracy_score
+import pickle
 
 #path ------------------------------------------------------------------------------------------------------------------------------------
-siamese_model_path="/content/drive/MyDrive/dataset/SaraSwati_Writes_Final_Model.pth"
+siamese_model_path="/content/drive/MyDrive/dataset/SaraSwati_Writes_Final_Model.pkl"
 knn_model_path='/content/drive/MyDrive/dataset/knn_model.pkl'
 test_data_path="/content/drive/MyDrive/dataset/test.csv"
 string_to_concat = "/content/drive/MyDrive/dataset/semi_test/"
@@ -105,7 +83,6 @@ class SiameseNetwork(nn.Module):
 # Transformation to images -------------------------------------------------------------------------------------------------------------------------
 transform=transforms.Compose(
         [transforms.Resize((155, 220)), transforms.ToTensor()])
-
 device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 #Extract output features of siamese model -----------------------------------------------------------------------------------------------------------
@@ -152,19 +129,16 @@ def knn_predict(test_features):
     return predicted_labels, probabilities
 
 #Loading the trained siamese model ---------------------------------------------------------------------------------------------------------------------
-net = SiameseNetwork().to(device)
-# Load the saved state dictionary
-state_dict = torch.load(siamese_model_path)
-# Load the state dictionary into the model
-net.load_state_dict(state_dict)
-
+with open(siamese_model_path, 'rb') as f:
+    siamese_model = pickle.load(f)
+    
 # Load the test data ------------------------------------------------------------------------------------------------------------------------------------
 test_data=pd.read_csv(test_data_path)
 test_data_copy = test_data.copy()
 # Concatenate string to the start of each testue in columns 1 and 2
 test_data_copy.iloc[:, 0:2] = string_to_concat + test_data_copy.iloc[:, 0:2].astype(str)
 
-test_features = extract_features(net,test_data_copy)
+test_features = extract_features(siamese_model,test_data_copy)
 
 test_features=np.array(test_features)
 test_features_reshaped = np.squeeze(test_features)
