@@ -10,6 +10,7 @@ import random
 from PIL import Image
 import PIL.ImageOps
 import torch
+import pickle
 import torchvision
 from torchvision import transforms
 from torch.utils.data import dataloader
@@ -31,7 +32,8 @@ from sklearn.metrics import f1_score, roc_auc_score, accuracy_score
 
 #Path --------------------------------------------------------------------------------------------------------------------------------
 Training_dataset_path="/content/drive/MyDrive/dataset/Training_Dataset.csv"
-siamese_model_path="/content/drive/MyDrive/dataset/SaraSwati_Writes_Final_Model.pth"
+siamese_model_dict_path="/content/drive/MyDrive/dataset/SaraSwati_Writes_Final_Model.pth"
+siamese_model_path="/content/drive/MyDrive/dataset/SaraSwati_Writes_Final_Model.pkl"
 validation_data_path="/content/drive/MyDrive/dataset/val.csv"
 string_to_concat = "/content/drive/MyDrive/dataset/val/"
 knn_model_path= '/content/drive/MyDrive/dataset/knn_model.pkl'
@@ -223,9 +225,13 @@ for epoch in range(1,30):
     best_eval_loss = eval_loss
     print("-"*10)
     print(f"Best Eval loss{best_eval_loss}")
-    torch.save(net.state_dict(), siamese_model_path)
+    torch.save(net.state_dict(), siamese_model_dict_path)
     print("Model Saved Successfully")
 
+with open(siamese_model_path, 'wb') as f:
+    pickle.dump(net, f)
+
+print("Model saved as .pkl successfully.")
 # Extracting output features of siamese network --------------------------------------------------------------------------------------------------
 
 device=torch.device('cuda' if torch.cuda.is_available() else 'cpu')
