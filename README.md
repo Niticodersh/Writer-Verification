@@ -1,4 +1,8 @@
 # NCVPRIPG Writer Verification  
+# TEAM: SSWrites
+Kaggle: [https://www.kaggle.com/nitishbhardwajiitj](https://www.kaggle.com/nitishbhardwajiitj)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------- 
+
 This GitHub repository aims to identify whether a given pair of handwritten text samples was written by the same person or two different individuals. It provides a solution for verifying the authenticity of handwritten text samples, making it invaluable for real-world applications such as forensic analysis, document authentication, and signature verification systems.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -10,8 +14,10 @@ This GitHub repository aims to identify whether a given pair of handwritten text
 3. [Inference Model](#inference-model)
 4. [Model Checkpoints](#model-checkpoints)
 5. [Codebase](#codebase)
-6. [Requirement.txt](#requirement)
-7. [Reference](#reference)
+6. [Architecture](#architecture)
+7. [Loss Visualization](#loss_visualization)
+8. [Requirement.txt](#requirement)
+9. [Reference](#reference)
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -66,6 +72,17 @@ The codebase for this project consists of the following files:
 Feel free to explore and modify the codebase to suit your specific requirements.
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+## Architecture <a name="architecture"></a>
+To understand the model used, see the architecture of our model.
+`Architecture.png`
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Loss Visualization <a name="loss_visualization"></a>
+The training and validation loss graph is shown in `Training&Testing_Loss_Visualization.ipynb`
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 ## Requirement.txt <a name="requirement"></a>
 To install the required libraries, run the following command in your terminal:
 
